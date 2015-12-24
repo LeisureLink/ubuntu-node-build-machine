@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER LeisureLink Tech <techteam@leisurelink.com>
 
-ENV NODE_VERSION 4.2.4
+ENV NODE_VERSION 0.12.7
 
 COPY rootfs /
 
