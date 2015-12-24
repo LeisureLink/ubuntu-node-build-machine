@@ -4,15 +4,15 @@ A docker image for building nodejs packages, with dependencies, for deployment o
 
 ## What's in the box
 
-`ubuntu-node-build-machine` is intended as a build machine. Its purpose is to build [nodejs]() packages within an environment that matches the environment in which the package will be executed.
+`ubuntu-node-build-machine` is intended as a build machine. Its purpose is to build [nodejs](https://nodejs.org/en/) packages within an environment that matches the environment in which the package will be executed.
 
-We've been running node applications on docker containers in production for over a year now and have encountered a few issues along the way by performing an `npm install` on a build server and then packaging the resulting application into a docker image. Some subtle inconsistencies can occur when the packages that our own applications references have native build steps during the `npm install`. These often detect the available libraries (linux headers, openssl, etc.) and stepping down or fail when those headers/libraries are not available. Anyone who has watched the mongodb driver fail back to a pure JS bson implementation knows what we're talking about here.
+We've been running node applications on docker containers in production for over a year now and have encountered a few issues along the way by performing an `npm install` on a build server and then packaging the resulting application into a docker image. Some subtle inconsistencies can occur when our applications reference packages that have build steps that involve native resources. These occur during `npm install` and often detect the available libraries (linux headers, openssl, etc.) and step down in some way when those headers/libraries are not available. Anyone who has watched the mongodb driver fail back to a pure JS bson implementation knows what we're talking about here.
 
 This docker image helps us do it more right.
 
 This build machine image is for targeting `ubuntu:14.04`, we also have `leisurelink/alpine-node-build-machine` for targeting `alpeine:3.2` and `leisurelink/centos-node-build-machine` for targeting `centos:7.1`. They are all very similar.
 
-This image is for building our node based applications. Once built, we package those assets into another docker image via a seperate Dockerfile. This two step process enables us to run leaner docker images for use as our runtime. One nice side-affect of this approach is that our runtime images don't have package managers, installers, or anything else that may be used to modify the container's assets while running under docker. As far as we're concerned, this practice reduces our attack surface.
+This image is for building our node based applications. Once built, we package the application into another docker image via a seperate `Dockerfile`. This two step process enables us to build and run leaner docker images for use as the runtime.
 
 ## Building Your Package
 
