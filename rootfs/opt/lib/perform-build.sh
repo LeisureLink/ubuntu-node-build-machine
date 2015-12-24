@@ -28,8 +28,15 @@ set -e
 #
 # Ensure the node user has permissions to install in the source directory.
 #
-chmod -R 0700 /source && \
+find /source -type d -print0 | xargs -0 chmod ugo-rwx
 cd /source
-# Remove remnants of prior builds are gone...
+
+# Remove remnants of prior builds ...
 rm -rf node_modules
+
+#
+# --no-bin-links provides better assurance that the assets will run when
+# copied or mounted in another container; otherwise the links may be broken
+# if the binary isn't available in the runtime container.
+#
 npm install --no-bin-links || exit $?
