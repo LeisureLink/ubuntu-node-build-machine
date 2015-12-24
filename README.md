@@ -50,7 +50,7 @@ docker run --rm --volume `pwd`:/source/ -env NPM_AUTH_TOKEN=0000000-0000-0000-00
 
 The script that performs the _build_ is `perform-build.sh`. We're open to suggestions and pull request but want to keep it simple; since we're building a node app, we rely on `npm install`.
 
-If your project has _special needs_, follow [Keith Cirkel's Hot to Use npm as a Build Tool](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/). Your goal should be to ensure that everything that needs to heppen in order for your build to succeed occurs as part of `npm install`. Notably, this means adding `preinstall` and/or `postinstall` scripts to your `package.json`.
+If your project has _special needs_, follow [Keith Cirkel's How to Use npm as a Build Tool](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/). Your goal should be to ensure that everything that needs to heppen in order for your build to succeed occurs as part of `npm install`. Notably, this means adding `preinstall` and/or `postinstall` scripts to your `package.json`.
 
 If your build process has _very special needs_, then you'll need your own, specialized docker image that sets up the enviornement appropriately for those special needs.
 
