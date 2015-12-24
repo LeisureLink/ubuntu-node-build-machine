@@ -24,16 +24,16 @@ From the directory where your source resides:
 docker run --rm --volume `pwd`:/source/ leisurelink/abuntu-node-machine
 ```
 
-**WARNING:** By mounting your local directory, the build will take place in the current folder. To ensure a clean build, the build script removes the `node_modules` folder so that all packages get built with the assets inside the container. For the duration of the build its probably best if you leave the files alone on the host filesystem.
+**WARNING:** By mounting your local directory, the build will take place in the current folder. To ensure a clean build, the build script removes the `node_modules` folder so that all packages get built with the assets present inside the container. For the duration of the build its probably best if you leave the files alone on the host filesystem.
 
 ### Private Repositories
 
 If your `package.json` file refers to private git repositories, you will need to provide authority to the builder when it is run. We mount an SSH key for this purpose:
 
-**Mount the SSH identity**
+**Mount an SSH identity**
 
 ```bash
-docker run --rm --volume `pwd`:/source/ --volume /path-to-key/id_rsa:/tmp/id_rsa leisurelink/abuntu-node-build-machine
+docker run --rm --volume `pwd`:/source/ --volume /path-to-key/id_rsa:/tmp/id_rsa leisurelink/ubuntu-node-build-machine
 ```
 
 ### Private NPMs
@@ -43,12 +43,14 @@ If your `package.json` file refers to private NPM repositories, you will need to
 **Specify an NPM Authentication Token**
 
 ```bash
-docker run --rm --volume `pwd`:/source/ -env NPM_AUTH_TOKEN=0000000-0000-0000-0000-00000000000 leisurelink/abuntu-node-build-machine
+docker run --rm --volume `pwd`:/source/ -env NPM_AUTH_TOKEN=0000000-0000-0000-0000-00000000000 leisurelink/ubuntu-node-build-machine
 ```
 
 ### Keep it Simple
 
-The script that performs the _build_ is `perform-build.sh`. We're open to suggestions and pull request but want to keep it simple; since we're building a node app, we rely on `npm install`. If your project has special needs, follow the [advice provided here](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/) to ensure that everything that needs to heppen in order for your build to succeed occurs as part of `npm install`. Notably, this means adding `preinstall` and/or `postinstall` scripts to your `package.json`.
+The script that performs the _build_ is `perform-build.sh`. We're open to suggestions and pull request but want to keep it simple; since we're building a node app, we rely on `npm install`.
+
+If your project has _special needs_, follow [Keith Cirkel's Hot to Use npm as a Build Tool](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/). Your goal should be to ensure that everything that needs to heppen in order for your build to succeed occurs as part of `npm install`. Notably, this means adding `preinstall` and/or `postinstall` scripts to your `package.json`.
 
 If your build process has _very special needs_, then you'll need your own, specialized docker image that sets up the enviornement appropriately for those special needs.
 
@@ -56,7 +58,7 @@ If your build process has _very special needs_, then you'll need your own, speci
 
 Clone this repository and build the `Dockerfile` to see concrete version information related to the ubuntu packages present on the image; there are many.
 
-* **1.0.0** (Ubuntu:14.04, nodejs 4.2.4)
+* **latest, 1.0.0** (Ubuntu:14.04, nodejs 4.2.4)
 
 ## License
 
