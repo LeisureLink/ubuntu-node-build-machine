@@ -59,6 +59,7 @@ If your build process has _very special needs_, then you'll need your own, speci
 Clone this repository and build the `Dockerfile` to see concrete version information related to the ubuntu packages present on the image; there are many.
 
 * **latest, 1.0.0** (Ubuntu:14.04, nodejs 4.2.4)
+* **node-0.12.7** (Ubuntu:14.04, nodejs 0.12.7)
 
 ## License
 
